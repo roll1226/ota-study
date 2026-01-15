@@ -60,8 +60,6 @@
       }
     },
     "owner": "roll1226",
-    "runtimeVersion": {
-      "policy": "appVersion"
-    }
+    "runtimeVersion": "1"
   }
 }

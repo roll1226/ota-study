@@ -1,13 +1,13 @@
+import { HelloWave } from "@/components/hello-wave";
 import ParallaxScrollView from "@/components/parallax-scroll-view";
+import { ThemedText } from "@/components/themed-text";
+import { ThemedView } from "@/components/themed-view";
 import { Image } from "expo-image";
+import { Link } from "expo-router";
 import * as Updates from "expo-updates";
 import { useEffect } from "react";
 import { Button, Platform, StyleSheet, Text, View } from "react-native";
 import { useOTAUpdateSafe } from "../hooks/useOOTAUpdateSafe";
-import { HelloWave } from "@/components/hello-wave";
-import { ThemedText } from "@/components/themed-text";
-import { ThemedView } from "@/components/themed-view";
-import { Link } from "expo-router";
 
 export default function HomeScreen() {
   useEffect(() => {
@@ -45,6 +45,7 @@ export default function HomeScreen() {
       )}
 
       <Button title="強制リロード" onPress={applyUpdate} />
+      <ThemedText type="title">OTA CHECK {new Date().toISOString()}</ThemedText>
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Welcome! OTA Update</ThemedText>
         <HelloWave />
