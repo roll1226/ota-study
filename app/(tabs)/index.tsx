@@ -2,8 +2,12 @@ import ParallaxScrollView from "@/components/parallax-scroll-view";
 import { Image } from "expo-image";
 import * as Updates from "expo-updates";
 import { useEffect } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Button, Platform, StyleSheet, Text, View } from "react-native";
 import { useOTAUpdateSafe } from "../hooks/useOOTAUpdateSafe";
+import { HelloWave } from "@/components/hello-wave";
+import { ThemedText } from "@/components/themed-text";
+import { ThemedView } from "@/components/themed-view";
+import { Link } from "expo-router";
 
 export default function HomeScreen() {
   useEffect(() => {
@@ -41,7 +45,7 @@ export default function HomeScreen() {
       )}
 
       <Button title="強制リロード" onPress={applyUpdate} />
-      {/* <ThemedView style={styles.titleContainer}>
+      <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Welcome! OTA Update</ThemedText>
         <HelloWave />
       </ThemedView>
@@ -105,7 +109,7 @@ export default function HomeScreen() {
           <ThemedText type="defaultSemiBold">app</ThemedText> to{" "}
           <ThemedText type="defaultSemiBold">app-example</ThemedText>.
         </ThemedText>
-      </ThemedView> */}
+      </ThemedView>
     </ParallaxScrollView>
   );
 }
