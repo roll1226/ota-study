@@ -15,6 +15,7 @@ export default function HomeScreen() {
   );
   const [updateId, setUpdateId] = useState(Updates.updateId);
   const [runtimeVersion, setRuntimeVersion] = useState(Updates.runtimeVersion);
+  const { updateAvailable, applyUpdate, checkUpdate } = useOTAUpdateSafe();
 
   useEffect(() => {
     console.log("===== OTA INFO =====");
@@ -27,14 +28,8 @@ export default function HomeScreen() {
     setUpdateId(Updates.updateId);
     setRuntimeVersion(Updates.runtimeVersion);
 
-    (async () => {
-      const update = await Updates.checkForUpdateAsync();
-      if (update.isAvailable) {
-        await Updates.fetchUpdateAsync();
-      }
-    })();
-  }, []);
-  const { updateAvailable, applyUpdate } = useOTAUpdateSafe();
+    checkUpdate();
+  }, [checkUpdate]);
 
   return (
     <ParallaxScrollView
@@ -64,6 +59,9 @@ export default function HomeScreen() {
       </ThemedView>
 
       <Button title="強制リロード" onPress={applyUpdate} />
+      <ThemedView>
+        <ThemedText>OTA update Check!</ThemedText>
+      </ThemedView>
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Welcome! OTA Update</ThemedText>
         <HelloWave />

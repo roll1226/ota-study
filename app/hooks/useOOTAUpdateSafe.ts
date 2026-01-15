@@ -1,29 +1,35 @@
 import * as Updates from "expo-updates";
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 export function useOTAUpdateSafe() {
-  const [ready, setReady] = useState(false);
   const [updateAvailable, setUpdateAvailable] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setReady(true), 3000);
-    return () => clearTimeout(timer);
+  const checkUpdate = useCallback(async () => {
+    try {
+      const result = await Updates.checkForUpdateAsync();
+      setUpdateAvailable(result.isAvailable);
+    } catch (e) {
+      console.warn("check update failed", e);
+    }
   }, []);
 
-  useEffect(() => {
-    if (!ready) return;
-
-    (async () => {
-      const res = await Updates.checkForUpdateAsync();
-      if (res.isAvailable) {
-        await Updates.fetchUpdateAsync();
-        setUpdateAvailable(true);
-      }
-    })();
-  }, [ready]);
+  const applyUpdate = useCallback(async () => {
+    try {
+      setIsFetching(true);
+      await Updates.fetchUpdateAsync();
+      await Updates.reloadAsync();
+    } catch (e) {
+      console.warn("apply update failed", e);
+    } finally {
+      setIsFetching(false);
+    }
+  }, []);
 
   return {
     updateAvailable,
-    applyUpdate: () => Updates.reloadAsync(),
+    isFetching,
+    checkUpdate,
+    applyUpdate,
   };
 }
