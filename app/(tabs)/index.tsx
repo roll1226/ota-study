@@ -1,12 +1,8 @@
-import { HelloWave } from "@/components/hello-wave";
 import ParallaxScrollView from "@/components/parallax-scroll-view";
-import { ThemedText } from "@/components/themed-text";
-import { ThemedView } from "@/components/themed-view";
 import { Image } from "expo-image";
-import { Link } from "expo-router";
 import * as Updates from "expo-updates";
 import { useEffect } from "react";
-import { Button, Platform, StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View } from "react-native";
 import { useOTAUpdateSafe } from "../hooks/useOOTAUpdateSafe";
 
 export default function HomeScreen() {
@@ -21,7 +17,6 @@ export default function HomeScreen() {
       const update = await Updates.checkForUpdateAsync();
       if (update.isAvailable) {
         await Updates.fetchUpdateAsync();
-        await Updates.reloadAsync();
       }
     })();
   }, []);
@@ -44,7 +39,9 @@ export default function HomeScreen() {
           <Button title="あとで" />
         </View>
       )}
-      <ThemedView style={styles.titleContainer}>
+
+      <Button title="強制リロード" onPress={applyUpdate} />
+      {/* <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Welcome! OTA Update</ThemedText>
         <HelloWave />
       </ThemedView>
@@ -108,7 +105,7 @@ export default function HomeScreen() {
           <ThemedText type="defaultSemiBold">app</ThemedText> to{" "}
           <ThemedText type="defaultSemiBold">app-example</ThemedText>.
         </ThemedText>
-      </ThemedView>
+      </ThemedView> */}
     </ParallaxScrollView>
   );
 }
