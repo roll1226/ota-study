@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { Button, Platform, StyleSheet, Text, View } from "react-native";
 import { useOTAUpdateSafe } from "../hooks/useOOTAUpdateSafe";
 import { useOTAOnForeground } from "../hooks/useOTAOnForeground";
+import { useOTAUpdateListener } from "../hooks/useOTAUpdateListener";
 
 export default function HomeScreen() {
   const [isEmbeddedLaunch, setIsEmbeddedLaunch] = useState(
@@ -18,8 +19,9 @@ export default function HomeScreen() {
   const [runtimeVersion, setRuntimeVersion] = useState(Updates.runtimeVersion);
   const { updateAvailable, applyUpdate, checkUpdate } = useOTAUpdateSafe();
   const { updateAvailable: updateAvailableOnForeground } = useOTAOnForeground();
+  const { updateAvailable: updateAvailableListener } = useOTAUpdateListener();
 
-  const shouldShowUpdateBanner = updateAvailable || updateAvailableOnForeground;
+  const shouldShowUpdateBanner = updateAvailable || updateAvailableOnForeground || updateAvailableListener;
 
   useEffect(() => {
     console.log("===== OTA INFO =====");
