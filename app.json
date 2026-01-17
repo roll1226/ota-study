@@ -51,6 +51,8 @@
     },
     "updates": {
       "enabled": true,
+      "checkAutomatically": "NEVER",
+      "fallbackToCacheTimeout": 0,
       "url": "https://u.expo.dev/75c7ea06-3cc6-4fef-8a88-258f7efbffd0"
     },
     "extra": {
