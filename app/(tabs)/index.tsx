@@ -8,6 +8,7 @@ import * as Updates from "expo-updates";
 import { useEffect, useState } from "react";
 import { Button, Platform, StyleSheet, Text, View } from "react-native";
 import { useOTAUpdateSafe } from "../hooks/useOOTAUpdateSafe";
+import { useOTAOnForeground } from "../hooks/useOTAOnForeground";
 
 export default function HomeScreen() {
   const [isEmbeddedLaunch, setIsEmbeddedLaunch] = useState(
@@ -16,6 +17,9 @@ export default function HomeScreen() {
   const [updateId, setUpdateId] = useState(Updates.updateId);
   const [runtimeVersion, setRuntimeVersion] = useState(Updates.runtimeVersion);
   const { updateAvailable, applyUpdate, checkUpdate } = useOTAUpdateSafe();
+  const { updateAvailable: updateAvailableOnForeground } = useOTAOnForeground();
+
+  const shouldShowUpdateBanner = updateAvailable || updateAvailableOnForeground;
 
   useEffect(() => {
     console.log("===== OTA INFO =====");
@@ -41,7 +45,7 @@ export default function HomeScreen() {
         />
       }
     >
-      {updateAvailable && (
+      {shouldShowUpdateBanner && (
         <View style={styles.banner}>
           <Text>新しい更新があります</Text>
           <Button title="更新" onPress={applyUpdate} />
