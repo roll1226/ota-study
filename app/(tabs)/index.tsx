@@ -13,7 +13,7 @@ import { useOTAUpdateListener } from "../hooks/useOTAUpdateListener";
 
 export default function HomeScreen() {
   const [isEmbeddedLaunch, setIsEmbeddedLaunch] = useState(
-    Updates.isEmbeddedLaunch
+    Updates.isEmbeddedLaunch,
   );
   const [updateId, setUpdateId] = useState(Updates.updateId);
   const [runtimeVersion, setRuntimeVersion] = useState(Updates.runtimeVersion);
@@ -65,7 +65,6 @@ export default function HomeScreen() {
         <ThemedText>runtimeVersion: {runtimeVersion}</ThemedText>
       </ThemedView>
 
-      <Button title="強制リロード" onPress={applyUpdate} />
       <ThemedView>
         <ThemedText>OTA update Check</ThemedText>
       </ThemedView>
