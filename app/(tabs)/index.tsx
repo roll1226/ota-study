@@ -21,7 +21,8 @@ export default function HomeScreen() {
   const { updateAvailable: updateAvailableOnForeground } = useOTAOnForeground();
   const { updateAvailable: updateAvailableListener } = useOTAUpdateListener();
 
-  const shouldShowUpdateBanner = updateAvailable || updateAvailableOnForeground || updateAvailableListener;
+  const shouldShowUpdateBanner =
+    updateAvailable || updateAvailableOnForeground || updateAvailableListener;
 
   useEffect(() => {
     console.log("===== OTA INFO =====");
@@ -66,7 +67,7 @@ export default function HomeScreen() {
 
       <Button title="強制リロード" onPress={applyUpdate} />
       <ThemedView>
-        <ThemedText>OTA update Check!!!!!????</ThemedText>
+        <ThemedText>OTA update Check</ThemedText>
       </ThemedView>
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Welcome! OTA Update</ThemedText>
