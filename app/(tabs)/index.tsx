@@ -17,24 +17,17 @@ export default function HomeScreen() {
   );
   const [updateId, setUpdateId] = useState(Updates.updateId);
   const [runtimeVersion, setRuntimeVersion] = useState(Updates.runtimeVersion);
-  const { updateAvailable, applyUpdate, checkUpdate } = useOTAUpdateSafe();
+  const { updateAvailable: updateAvailableUpdateSafe, applyUpdate, checkUpdate } = useOTAUpdateSafe();
   const { updateAvailable: updateAvailableOnForeground } = useOTAOnForeground();
   const { updateAvailable: updateAvailableListener } = useOTAUpdateListener();
 
   const shouldShowUpdateBanner =
-    updateAvailable || updateAvailableOnForeground || updateAvailableListener;
+    updateAvailableUpdateSafe || updateAvailableOnForeground || updateAvailableListener;
 
   useEffect(() => {
-    console.log("===== OTA INFO =====");
-    console.log("isEmbeddedLaunch:", Updates.isEmbeddedLaunch);
-    console.log("updateId:", Updates.updateId);
-    console.log("runtimeVersion:", Updates.runtimeVersion);
-    console.log("====================");
-
     setIsEmbeddedLaunch(Updates.isEmbeddedLaunch);
     setUpdateId(Updates.updateId);
     setRuntimeVersion(Updates.runtimeVersion);
-
     checkUpdate();
   }, [checkUpdate]);
 
