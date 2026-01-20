@@ -17,12 +17,18 @@ export default function HomeScreen() {
   );
   const [updateId, setUpdateId] = useState(Updates.updateId);
   const [runtimeVersion, setRuntimeVersion] = useState(Updates.runtimeVersion);
-  const { updateAvailable: updateAvailableUpdateSafe, applyUpdate, checkUpdate } = useOTAUpdateSafe();
+  const {
+    updateAvailable: updateAvailableUpdateSafe,
+    applyUpdate,
+    checkUpdate,
+  } = useOTAUpdateSafe();
   const { updateAvailable: updateAvailableOnForeground } = useOTAOnForeground();
   const { updateAvailable: updateAvailableListener } = useOTAUpdateListener();
 
   const shouldShowUpdateBanner =
-    updateAvailableUpdateSafe || updateAvailableOnForeground || updateAvailableListener;
+    updateAvailableUpdateSafe ||
+    updateAvailableOnForeground ||
+    updateAvailableListener;
 
   useEffect(() => {
     setIsEmbeddedLaunch(Updates.isEmbeddedLaunch);
@@ -48,7 +54,6 @@ export default function HomeScreen() {
           <Button title="あとで" />
         </View>
       )}
-
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">OTA Info</ThemedText>
         <ThemedText>
