@@ -7,6 +7,7 @@ import { Link } from "expo-router";
 import * as Updates from "expo-updates";
 import { useEffect, useState } from "react";
 import { Button, Platform, StyleSheet, Text, View } from "react-native";
+
 import { useOTAUpdateSafe } from "../hooks/useOOTAUpdateSafe";
 import { useOTAOnForeground } from "../hooks/useOTAOnForeground";
 import { useOTAUpdateListener } from "../hooks/useOTAUpdateListener";
