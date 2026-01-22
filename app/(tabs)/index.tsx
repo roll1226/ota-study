@@ -6,8 +6,8 @@ import { Image } from "expo-image";
 import { Link } from "expo-router";
 import * as Updates from "expo-updates";
 import { useEffect, useState } from "react";
-import { Button, Platform, StyleSheet, Text, View } from "react-native";
-
+import { Button, Platform, Text } from "react-native";
+import Styled from "styled-components/native";
 import { useOTAUpdateSafe } from "../hooks/useOOTAUpdateSafe";
 import { useOTAOnForeground } from "../hooks/useOTAOnForeground";
 import { useOTAUpdateListener } from "../hooks/useOTAUpdateListener";
@@ -42,36 +42,35 @@ export default function HomeScreen() {
     <ParallaxScrollView
       headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
       headerImage={
-        <Image
+        <ReactLogoImage
           source={require("@/assets/images/partial-react-logo.png")}
-          style={styles.reactLogo}
         />
       }
     >
       {shouldShowUpdateBanner && (
-        <View style={styles.banner}>
+        <Banner>
           <Text>新しい更新があります</Text>
           <Button title="更新" onPress={applyUpdate} />
           <Button title="あとで" />
-        </View>
+        </Banner>
       )}
-      <ThemedView style={styles.stepContainer}>
+      <StepContainer>
         <ThemedText type="subtitle">OTA Info</ThemedText>
         <ThemedText>
           isEmbeddedLaunch: {isEmbeddedLaunch ? "true" : "false"}
         </ThemedText>
         <ThemedText>updateId: {updateId ?? "null"}</ThemedText>
         <ThemedText>runtimeVersion: {runtimeVersion}</ThemedText>
-      </ThemedView>
+      </StepContainer>
 
       <ThemedView>
         <ThemedText>OTA update Check</ThemedText>
       </ThemedView>
-      <ThemedView style={styles.titleContainer}>
+      <TitleContainer>
         <ThemedText type="title">Welcome! OTA Update</ThemedText>
         <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
+      </TitleContainer>
+      <StepContainer>
         <ThemedText type="subtitle">Step 1: Try it</ThemedText>
         <ThemedText>
           Edit{" "}
@@ -86,8 +85,8 @@ export default function HomeScreen() {
           </ThemedText>{" "}
           to open developer tools.
         </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
+      </StepContainer>
+      <StepContainer>
         <Link href="/modal">
           <Link.Trigger>
             <ThemedText type="subtitle">Step 2: Explore</ThemedText>
@@ -118,8 +117,8 @@ export default function HomeScreen() {
         <ThemedText>
           {`Tap the Explore tab to learn more about what's included in this starter app.`}
         </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
+      </StepContainer>
+      <StepContainer>
         <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
         <ThemedText>
           {`When you're ready, run `}
@@ -131,32 +130,33 @@ export default function HomeScreen() {
           <ThemedText type="defaultSemiBold">app</ThemedText> to{" "}
           <ThemedText type="defaultSemiBold">app-example</ThemedText>.
         </ThemedText>
-      </ThemedView>
+      </StepContainer>
     </ParallaxScrollView>
   );
 }
 
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: "absolute",
-  },
-  banner: {
-    backgroundColor: "#FFD700",
-    padding: 10,
-    borderRadius: 5,
-    marginBottom: 10,
-  },
-});
+const ReactLogoImage = Styled(Image)`
+  height: 178px;
+  width: 290px;
+  bottom: 0px;
+  left: 0px;
+  position: absolute;
+`;
+
+const Banner = Styled.View`
+  background-color: #ffd700;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+`;
+
+const StepContainer = Styled(ThemedView)`
+  gap: 8px;
+  margin-bottom: 8px;
+`;
+
+const TitleContainer = Styled(ThemedView)`
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+`;
