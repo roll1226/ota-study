@@ -8,7 +8,7 @@ import * as Updates from "expo-updates";
 import { useEffect, useState } from "react";
 import { Button, Platform, Text } from "react-native";
 import Styled from "styled-components/native";
-import { useOTAUpdateSafe } from "../hooks/useOOTAUpdateSafe";
+import { useOTAUpdateSafe } from "../hooks/useOTAUpdateSafe";
 import { useOTAOnForeground } from "../hooks/useOTAOnForeground";
 import { useOTAUpdateListener } from "../hooks/useOTAUpdateListener";
 
