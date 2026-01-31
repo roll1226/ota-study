@@ -68,6 +68,7 @@ export default function HomeScreen() {
           to open developer tools.
         </ThemedText>
       </StepContainer>
+
       <StepContainer>
         <Link href="/modal">
           <Link.Trigger>
