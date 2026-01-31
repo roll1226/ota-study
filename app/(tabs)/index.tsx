@@ -4,20 +4,14 @@ import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
-import * as Updates from "expo-updates";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Button, Platform, Text } from "react-native";
 import Styled from "styled-components/native";
-import { useOTAUpdateSafe } from "../hooks/useOTAUpdateSafe";
 import { useOTAOnForeground } from "../hooks/useOTAOnForeground";
 import { useOTAUpdateListener } from "../hooks/useOTAUpdateListener";
+import { useOTAUpdateSafe } from "../hooks/useOTAUpdateSafe";
 
 export default function HomeScreen() {
-  const [isEmbeddedLaunch, setIsEmbeddedLaunch] = useState(
-    Updates.isEmbeddedLaunch,
-  );
-  const [updateId, setUpdateId] = useState(Updates.updateId);
-  const [runtimeVersion, setRuntimeVersion] = useState(Updates.runtimeVersion);
   const {
     updateAvailable: updateAvailableUpdateSafe,
     applyUpdate,
@@ -32,9 +26,6 @@ export default function HomeScreen() {
     updateAvailableListener;
 
   useEffect(() => {
-    setIsEmbeddedLaunch(Updates.isEmbeddedLaunch);
-    setUpdateId(Updates.updateId);
-    setRuntimeVersion(Updates.runtimeVersion);
     checkUpdate();
   }, [checkUpdate]);
 
@@ -54,15 +45,6 @@ export default function HomeScreen() {
           <Button title="あとで" />
         </Banner>
       )}
-      <StepContainer>
-        <ThemedText type="subtitle">OTA Info</ThemedText>
-        <ThemedText>
-          isEmbeddedLaunch: {isEmbeddedLaunch ? "true" : "false"}
-        </ThemedText>
-        <ThemedText>updateId: {updateId ?? "null"}</ThemedText>
-        <ThemedText>runtimeVersion: {runtimeVersion}</ThemedText>
-      </StepContainer>
-
       <ThemedView>
         <ThemedText>OTA update Check</ThemedText>
       </ThemedView>
